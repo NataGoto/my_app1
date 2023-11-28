@@ -2,6 +2,14 @@ import streamlit as st
 from PIL import Image
 from tensorflow.keras.models import load_model
 import numpy as np
+import sys
+import os
+
+# Добавляем текущую директорию в путь поиска модулей
+current_directory = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, current_directory)
+
+# Теперь можно импортировать другие модули, включая builder.py
 
 # Интеграция функции process прямо в app.py
 def process(image_file):

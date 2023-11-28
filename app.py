@@ -1,3 +1,8 @@
+import os
+os.environ['PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION'] = 'python'
+
+# Остальной код вашего приложения...
+
 import streamlit as st
 from PIL import Image
 from segment import process

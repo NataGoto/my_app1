@@ -1,19 +1,25 @@
-
-
 import streamlit as st
 from PIL import Image
 from segment import process
 
-st.title('Airplane segmentation demo')
+st.title('Different images segmentation demo')
 
-image_file = st.file_uploader('Load an image', type=['png', 'jpg'])  # Добавление загрузчика файлов
+image_file = st.file_uploader('Load an image', type=['png', 'jpg'])  # Р”РѕР±Р°РІР»РµРЅРёРµ Р·Р°РіСЂСѓР·С‡РёРєР° С„Р°Р№Р»РѕРІ
 
-if not image_file is None:                       # Выполнение блока, если загружено изображение
-    col1, col2 = st.columns(2)                   # Создание 2 колонок # st.beta_columns(2)
-    image = Image.open(image_file)               # Открытие изображения
-    results = process(image_file)                # Обработка изображения с помощью функции, реализованной в другом файле
-    col1.text('Source image')
-    col1.image(results[0])                       # Вывод в первой колонке уменьшенного исходного изображения
-    col2.text('Mask')
-    col2.image(results[1])                       # Вывод маски второй колонке
-    st.image(results[2])                         # Вывод исходного изображения с наложенной маской (по центру)
+if image_file is not None:  # Р’С‹РїРѕР»РЅРµРЅРёРµ Р±Р»РѕРєР°, РµСЃР»Рё Р·Р°РіСЂСѓР¶РµРЅРѕ РёР·РѕР±СЂР°Р¶РµРЅРёРµ
+    try:
+        # РџРѕРїС‹С‚РєР° РѕС‚РєСЂС‹С‚СЊ РёР·РѕР±СЂР°Р¶РµРЅРёРµ
+        image = Image.open(image_file)
+
+        # Р’Р°С€ РєРѕРґ РґР»СЏ РѕР±СЂР°Р±РѕС‚РєРё РёР·РѕР±СЂР°Р¶РµРЅРёСЏ
+        col1, col2 = st.columns(2)
+        results = process(image_file)
+        col1.text('Source image')
+        col1.image(results[0])
+        col2.text('Mask')
+        col2.image(results[1])
+        st.image(results[2])
+
+    except UnicodeDecodeError as e:
+        # РћР±СЂР°Р±РѕС‚РєР° РѕС€РёР±РєРё РґРµРєРѕРґРёСЂРѕРІР°РЅРёСЏ
+        st.error(f"РћС€РёР±РєР° РґРµРєРѕРґРёСЂРѕРІР°РЅРёСЏ С„Р°Р№Р»Р°: {e}")

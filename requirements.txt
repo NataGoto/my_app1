@@ -1,7 +1,6 @@
 
 
-streamlit
-tensorflow==2.10.0  
-protobuf==3.19.3
-
+streamlit==1.9.0
+tensorflow 
+protobuf==3.19.0
 
